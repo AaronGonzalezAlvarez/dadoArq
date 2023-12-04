@@ -15,6 +15,8 @@ class DadoViewModel : ViewModel() {
     val uiState: StateFlow<DadoUiState> = _uiState.asStateFlow()
 
      fun onChangeDado() {
+         var n = _uiState.value.aux
+         n++
         val dadoValue = lanzarDado()
         val drawableResource = when (dadoValue) {
             1 -> R.drawable.dice_1
@@ -24,11 +26,10 @@ class DadoViewModel : ViewModel() {
             5 -> R.drawable.dice_5
             else -> R.drawable.dice_6
         }
-       /* _num.value = drawableResource
-         _numReal.value = dadoValue*/
          _uiState.update { currentState -> currentState.copy(
             num=drawableResource,
-             numReal = dadoValue
+             numReal = dadoValue,
+             aux = n
          ) }
     }
 

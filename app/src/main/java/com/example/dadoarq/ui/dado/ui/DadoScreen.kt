@@ -19,20 +19,21 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Composable
-fun DadoScreen(viewModel: DadoViewModel = DadoViewModel()){
+fun DadoScreen(viewModel: DadoViewModel = viewModel()){
     val dadoUiState by viewModel.uiState.collectAsState()
     Box (modifier = Modifier
         .fillMaxSize()
         .padding(16.dp)
         .background(Color.Yellow)){
-        dadoLoco({ viewModel.onChangeDado() },Modifier.align(Alignment.Center),dadoUiState.num,dadoUiState.numReal)
+        dadoLoco({ viewModel.onChangeDado() },Modifier.align(Alignment.Center),dadoUiState.num,dadoUiState.numReal,dadoUiState.aux)
     }
 }
 
 @Composable
-fun dadoLoco(onChangeDado: () -> Unit, modifier: Modifier,numDado:Int,numReal:Int) {
+fun dadoLoco(onChangeDado: () -> Unit, modifier: Modifier,numDado:Int,numReal:Int,numVeces:Int) {
     Column(modifier = modifier
         .background(Color.Cyan)
         .padding(2.dp)) {
@@ -55,5 +56,13 @@ fun dadoLoco(onChangeDado: () -> Unit, modifier: Modifier,numDado:Int,numReal:In
         ){
             Text(text = "Dado loco")
         }
+        Spacer(Modifier.padding(2.dp))
+        Text(
+            text = "Veces tirada: $numVeces",
+            modifier= Modifier.align(Alignment.End),
+            color = Color.Black,
+            fontWeight = FontWeight.Bold,
+            fontFamily = FontFamily.Cursive
+        )
     }
 }
