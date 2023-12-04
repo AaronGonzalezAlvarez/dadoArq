@@ -27,12 +27,12 @@ fun DadoScreen(viewModel: DadoViewModel = DadoViewModel()){
         .fillMaxSize()
         .padding(16.dp)
         .background(Color.Yellow)){
-        dadoLoco(viewModel,Modifier.align(Alignment.Center),dadoUiState.num,dadoUiState.numReal)
+        dadoLoco({ viewModel.onChangeDado() },Modifier.align(Alignment.Center),dadoUiState.num,dadoUiState.numReal)
     }
 }
 
 @Composable
-fun dadoLoco(viewModel: DadoViewModel, modifier: Modifier,numDado:Int,numReal:Int) {
+fun dadoLoco(onChangeDado: () -> Unit, modifier: Modifier,numDado:Int,numReal:Int) {
     Column(modifier = modifier
         .background(Color.Cyan)
         .padding(2.dp)) {
@@ -50,7 +50,7 @@ fun dadoLoco(viewModel: DadoViewModel, modifier: Modifier,numDado:Int,numReal:In
         )
         Spacer(Modifier.padding(2.dp))
         Button(
-            onClick = {viewModel.onChangeDado()},
+            onClick = onChangeDado,
             modifier= Modifier.align(Alignment.CenterHorizontally)
         ){
             Text(text = "Dado loco")
